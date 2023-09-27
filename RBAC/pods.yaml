@@ -1,0 +1,38 @@
+## Create a Pod named operator with the image nginx:1.21.1 
+# in the namespace apps. Expose the container port 80. 
+# Assign the ServiceAccount api-access to the Pod. 
+# Create another Pod named disposable with the image nginx:1.21.1 
+# in the namespace rm. 
+# Do not assign the ServiceAccount to the Pod.
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: operator
+  namespace: apps
+spec:
+  containers:
+  - name: operator
+    image: nginx:1.21.1
+    ports:
+    - containerPort: 80
+  serviceAccountName: api-access
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name:  rm
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: disposable
+  namespace: rm
+spec:
+  containers:
+  - name: disposable
+    image: nginx:1.21.1
+    ports:
+    - containerPort: 80

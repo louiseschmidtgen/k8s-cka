@@ -1,0 +1,4 @@
+namespace: t012
+resources:
+- pod.yaml
+
